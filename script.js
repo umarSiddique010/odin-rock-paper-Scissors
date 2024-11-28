@@ -1,3 +1,11 @@
+const playBtns = document.querySelectorAll(".rps-choice");
+const msgBox = document.querySelector(".msg-box");
+const resultBox = document.querySelector(".result-box");
+const scoreMsg = document.querySelector(".score-msg");
+const resetBtn = document.querySelector(".reset-btn");
+
+let round = 0;
+
 const rock = "rock";
 const paper = "paper";
 const scissors = "scissors";
@@ -5,7 +13,22 @@ const scissors = "scissors";
 let humanScore = 0;
 let computerScore = 0;
 
-const randomNumberOneToNinety = () => Math.floor(Math.random() * 90);
+playBtns.forEach((playBtn) => {
+  playBtn.addEventListener("click", () => {
+    let buttonValue = playBtn.textContent.toLowerCase();
+    const humanSelection = getHumanChoice(buttonValue);
+    const computerSelection = getComputerChoice();
+    playRound(humanSelection, computerSelection);
+    result();
+  });
+});
+
+resetBtn.addEventListener("click", reset)
+
+
+function randomNumberOneToNinety() {
+  return Math.floor(Math.random() * 90);
+}
 
 function getComputerChoice() {
   const randomNumber = randomNumberOneToNinety();
@@ -23,80 +46,67 @@ function getComputerChoice() {
   }
 }
 
-function getHumanChoice() {
-  let humanChoice = prompt("Enter - Rock, Paper or Scissors to Play the Game");
-
-  //  Checking if user filled a not valid input
-
-  if (![rock, paper, scissors].includes(humanChoice)) {
-    alert("Please enter a VALID Input");
-    return;
-  }
-
-  return humanChoice.toLowerCase();
+function getHumanChoice(buttonValue) {
+  return buttonValue;
 }
 
 function playRound(humanChoice, computerChoice) {
-  // Matching Computer with User
+  // Matching Computer with Human
 
   if (humanChoice === computerChoice) {
-    console.log("Match Draw! Neither win");
+    msgBox.textContent = "Match Draw! Neither win";
+    round++;
   } else if (
     (humanChoice === rock && computerChoice == scissors) ||
     (humanChoice === scissors && computerChoice === paper) ||
     (humanChoice === paper && computerChoice === rock)
   ) {
-    console.log(`You Win! ${humanChoice} beats The ${computerChoice}`);
+    msgBox.textContent = `You Win! ${humanChoice} beats The ${computerChoice}`;
     humanScore++;
+    round++;
   } else {
-    console.log(`You Lose! ${computerChoice} beats The ${humanChoice}`);
+    msgBox.textContent = `You Lose! ${humanChoice} is beaten by The ${computerChoice}`;
     computerScore++;
+    round++;
   }
 
   // A simple message to show who has high score
 
+  resultBox.textContent = `Your Score: ${humanScore} \n Computer Score: ${computerScore}`;
+
   if (computerScore > humanScore) {
-    console.warn("Computer Score Running High!!");
+    scoreMsg.textContent = "Computer Score Running High!!";
   } else if (computerScore < humanScore) {
-    console.info("Your Score is Running High!!!");
+    scoreMsg.textContent = "Your Score is Running High!!!";
   } else {
-    console.warn("Same Scores! Match Draw😐");
+    scoreMsg.textContent = "Same Scores!";
   }
 }
 
-const humanSelection = getHumanChoice();
-const computerSelection = getComputerChoice();
+function result() {
+  if (round >= 5) {
+    playBtns.forEach((button) => {
+      button.disabled = true;
+    });
 
-function playGame() {
-  for (let i = 0; i <= 5; i++) {
-    const humanSelection = getHumanChoice();
-    const computerSelection = getComputerChoice();
-    if (humanSelection) {
-      playRound(humanSelection, computerSelection);
+    if (humanScore > computerScore) {
+      resultBox.textContent = `Congratulations! You WON the match by ${humanScore},
+                Computer score: ${computerScore}`;
     } else {
-      i--;
+      resultBox.textContent = `Better Luck Next time. 
+                   your score: ${humanScore}
+                   computer score: ${computerScore}`;
     }
+    scoreMsg.textContent = ""
   }
 }
 
-    function result() {
-
-        if (humanScore > computerScore) {
-            console.log(`Congratulations! You WON the match by ${humanScore},
-                Computer score: ${computerScore}`)
-        } else {
-                console.log((`Better Luck Next time. 
-                   your score: ${humanScore}
-                   computer score: ${computerScore}`));
-                
-        }
-
-    }
-
-
-try {
-  playGame();
-  result()
-} catch (error) {
-  alert("Something went Wrong");
+function reset() {
+  msgBox.textContent = "";
+  resultBox.textContent = "";
+  scoreMsg.textContent = "";
+  round = 0
+  playBtns.forEach(playBtn => {
+    playBtn.disabled = false
+  });
 }
