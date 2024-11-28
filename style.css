@@ -133,3 +133,47 @@ nav {
 
     }
 }
+
+@media (min-width:430px) {
+  
+    
+
+    .game-container {
+        height: 620px;
+       
+    }
+
+    .rps-choice img{
+        width: 100px;
+        height: 100px;
+
+    }
+
+
+}
+
+@media (min-width:375px) {
+  
+    * {
+     font-size:36px ; 
+    }
+
+    .game-container {
+        padding: 0;
+        margin-top: 400px;
+        height: 920px;
+       
+    }
+
+    .game-container .output-container p {
+        margin: 25px;
+    }
+
+    .rps-choice img{
+        width: 120px;
+        height: 120px;
+
+    }
+
+}
+
