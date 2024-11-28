@@ -5,20 +5,36 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Rock Paper Scissors Game</title>
     <script src="./script.js" defer></script>
+    <link rel="stylesheet" href="./style.css">
+    <link rel="shortcut icon" href="./assets/logo.png" type="image/png">
 </head>
 <body>
+
+    <nav>
+        <div class="logo"><img src="./assets/logo.png" alt="Logo"></div>
+    </nav>
+
+    <div class="game-container">
     <div class="buttons">
-    <button class="rps-choice">Rock</button>
-    <button class="rps-choice">Paper</button>
-    <button class="rps-choice">Scissors</button>
-    <button class="reset-btn">Reset</button>
+    <button class="rps-choice rock"><img src="./assets/rock.png" alt="Image of rock"></button>
+    <button class="rps-choice paper"><img src="./assets/paper.png" alt="Image of paper"></button>
+    <button class="rps-choice scissors"><img src="./assets/scissors.png" alt="Image of scissors"></button>
 </div>
     
     <div class="output-container">
         <p class="msg-box"></p>
         <p class="score-msg"></p>
-        <p class="result-box"></p>
+        <p class="score-box"></p>
     </div>
+
+</div>
+
+
+<div class="reset-container">
+    <p class="result-msg"></p>
+    <button class="reset-btn">Reset</button>
+</div>
+
 
 </body>
 </html>

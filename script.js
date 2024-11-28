@@ -1,8 +1,10 @@
 const playBtns = document.querySelectorAll(".rps-choice");
 const msgBox = document.querySelector(".msg-box");
-const resultBox = document.querySelector(".result-box");
 const scoreMsg = document.querySelector(".score-msg");
+const scoreBox = document.querySelector(".score-box");
 const resetBtn = document.querySelector(".reset-btn");
+const resultMsg = document.querySelector(".result-msg");
+const resetContainer = document.querySelector(".reset-container");
 
 let round = 0;
 
@@ -15,7 +17,7 @@ let computerScore = 0;
 
 playBtns.forEach((playBtn) => {
   playBtn.addEventListener("click", () => {
-    let buttonValue = playBtn.textContent.toLowerCase();
+    let buttonValue = playBtn.classList[1]; 
     const humanSelection = getHumanChoice(buttonValue);
     const computerSelection = getComputerChoice();
     playRound(humanSelection, computerSelection);
@@ -23,8 +25,7 @@ playBtns.forEach((playBtn) => {
   });
 });
 
-resetBtn.addEventListener("click", reset)
-
+resetBtn.addEventListener("click", reset);
 
 function randomNumberOneToNinety() {
   return Math.floor(Math.random() * 90);
@@ -32,18 +33,9 @@ function randomNumberOneToNinety() {
 
 function getComputerChoice() {
   const randomNumber = randomNumberOneToNinety();
-
-  if (randomNumber >= 0 && randomNumber < 30) {
-    return rock;
-  }
-
-  if (randomNumber >= 30 && randomNumber < 60) {
-    return paper;
-  }
-
-  if (randomNumber >= 60 && randomNumber < 90) {
-    return scissors;
-  }
+  if (randomNumber < 30) return rock;
+  if (randomNumber < 60) return paper;
+  return scissors;
 }
 
 function getHumanChoice(buttonValue) {
@@ -51,35 +43,33 @@ function getHumanChoice(buttonValue) {
 }
 
 function playRound(humanChoice, computerChoice) {
-  // Matching Computer with Human
-
   if (humanChoice === computerChoice) {
-    msgBox.textContent = "Match Draw! Neither win";
+    msgBox.textContent = "Match Draw! Neither wins.";
     round++;
   } else if (
-    (humanChoice === rock && computerChoice == scissors) ||
+    (humanChoice === rock && computerChoice === scissors) ||
     (humanChoice === scissors && computerChoice === paper) ||
     (humanChoice === paper && computerChoice === rock)
   ) {
-    msgBox.textContent = `You Win! ${humanChoice} beats The ${computerChoice}`;
+    msgBox.textContent = `You Win! ${humanChoice} beats ${computerChoice}.`;
     humanScore++;
     round++;
   } else {
-    msgBox.textContent = `You Lose! ${humanChoice} is beaten by The ${computerChoice}`;
+    msgBox.textContent = `You Lose! ${humanChoice} is beaten by ${computerChoice}.`;
     computerScore++;
     round++;
   }
 
-  // A simple message to show who has high score
+  // Update running score
+  scoreBox.textContent = `Your Score: ${humanScore} | Computer Score: ${computerScore}`;
 
-  resultBox.textContent = `Your Score: ${humanScore} \n Computer Score: ${computerScore}`;
-
+  // High score message
   if (computerScore > humanScore) {
-    scoreMsg.textContent = "Computer Score Running High!!";
-  } else if (computerScore < humanScore) {
-    scoreMsg.textContent = "Your Score is Running High!!!";
+    scoreMsg.textContent = "Computer is leading!";
+  } else if (humanScore > computerScore) {
+    scoreMsg.textContent = "You're leading!";
   } else {
-    scoreMsg.textContent = "Same Scores!";
+    scoreMsg.textContent = "It's a tie!";
   }
 }
 
@@ -89,24 +79,31 @@ function result() {
       button.disabled = true;
     });
 
+    resetContainer.classList.add("visible");  
+
     if (humanScore > computerScore) {
-      resultBox.textContent = `Congratulations! You WON the match by ${humanScore},
-                Computer score: ${computerScore}`;
+      resultMsg.textContent = `🎉 Congratulations! You won! Final Score: ${humanScore} - ${computerScore}`;
+    } else if (humanScore < computerScore) {
+      resultMsg.textContent = `😞 Better luck next time! Final Score: ${humanScore} - ${computerScore}`;
     } else {
-      resultBox.textContent = `Better Luck Next time. 
-                   your score: ${humanScore}
-                   computer score: ${computerScore}`;
+      resultMsg.textContent = `🤝 It's a tie! Final Score: ${humanScore} - ${computerScore}`;
     }
-    scoreMsg.textContent = ""
   }
 }
 
 function reset() {
+  // Reset scores, rounds, and messages
   msgBox.textContent = "";
-  resultBox.textContent = "";
   scoreMsg.textContent = "";
-  round = 0
-  playBtns.forEach(playBtn => {
-    playBtn.disabled = false
+  scoreBox.textContent = "";
+  resultMsg.textContent = "";
+  humanScore = 0;
+  computerScore = 0;
+  round = 0;
+
+  resetContainer.classList.remove("visible");
+
+  playBtns.forEach((playBtn) => {
+    playBtn.disabled = false;
   });
 }
