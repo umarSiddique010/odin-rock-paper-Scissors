@@ -27,6 +27,7 @@ This project is assignment project of JavaScript in the Foundation section of Th
 - Box-model
 - Box model manipulation
 - Responsive design with viewport units
+- Media query
 - Position property
 - z-index
 - Opacity and transparency
