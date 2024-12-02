@@ -1,5 +1,6 @@
 # odin-rock_paper_Scissors
-This project is assignment project of JavaScript in the Foundation section of The Odin Projects 
+This project is assignment project from HTML and CSS intermediate section of The Odin Projects. Although the Project is given by Odin by All the Functionality was created by me
+
 
 
 ## You can see my Web Page and play game live - visit : https://umarsiddique010.github.io/odin-rock_paper_Scissors/
