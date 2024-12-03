@@ -3,7 +3,8 @@ This project is assignment project from Foundation JavaScript section of The Odi
 
 
 
-## You can see my Web Page and play game live - visit : https://umarsiddique010.github.io/odin-rock_paper_Scissors/
+## You can see my Web Page and play game live - visit : https://umarsiddique010.github.io/odin-rock-paper-Scissors
+/
 
 ## The skills that are used in this project :-
 
